@@ -162,7 +162,7 @@ def render_anscombe_quartet():
             },
         ],
     }
-    st_echarts(options=option, height="600px")
+    st_echarts(options=option, height="500px")
 
 
 def render_scatter_single_axis():
@@ -405,19 +405,19 @@ def render_scatter_single_axis():
     }
     for dataItem in data:
         option["series"][dataItem[0]]["data"].append([dataItem[1], dataItem[2]])
-    st_echarts(options=option, height="600px")
+    st_echarts(options=option, height="500px")
 
 
 ST_SCATTER_DEMOS = {
-    "Scatter: Basic Scatter Chart": (
+    "Basic Scatter Chart": (
         render_scatter_simple,
         "https://echarts.apache.org/examples/en/editor.html?c=scatter-simple",
     ),
-    "Scatter: Anscombe's Quartet": (
+    "Anscombe's Quartet": (
         render_anscombe_quartet,
         "https://echarts.apache.org/examples/en/editor.html?c=scatter-anscombe-quartet",
     ),
-    "Scatter: Scatter Single Axis": (
+    "Scatter Single Axis": (
         render_scatter_single_axis,
         "https://echarts.apache.org/examples/en/editor.html?c=scatter-single-axis",
     ),

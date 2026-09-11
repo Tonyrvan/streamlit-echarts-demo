@@ -1,8 +1,9 @@
+import json
 import random
 import streamlit as st
 import pyecharts.options as opts
 from pyecharts.charts import Bar
-from streamlit_echarts import st_pyecharts
+from streamlit_echarts import st_echarts
 
 
 def render_random_bar_chart():
@@ -17,14 +18,14 @@ def render_random_bar_chart():
             toolbox_opts=opts.ToolboxOpts(),
         )
     )
-    st_pyecharts(
-        b, key="echarts"
+    st_echarts(
+        options=json.loads(b.dump_options()), key="echarts"
     )  # Add key argument to not remount component at every Streamlit run
     st.button("Randomize data")
 
 
 ST_BAR_DEMOS = {
-    "Bar: Random data": (
+    "Random data": (
         render_random_bar_chart,
         "https://gallery.pyecharts.org/#/Line/line_base",
     )

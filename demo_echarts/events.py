@@ -12,21 +12,31 @@ def render_click_events():
         "series": [{"data": [120, 200, 150, 80, 70, 110, 130], "type": "bar"}],
     }
     events = {
-        "click": "function(params) { console.log(params.name); return params.name }",
         "dblclick": "function(params) { return [params.type, params.name, params.value] }",
     }
 
-    st.markdown("Click on a bar for label + value, double click to see type+name+value")
-    s = st_echarts(
-        options=options, events=events, height="500px", key="render_basic_bar_events"
+    st.markdown(
+        "Click on a bar for selection data, double click to see type+name+value"
     )
-    if s is not None:
-        st.write(s)
+    result = st_echarts(
+        options=options,
+        events=events,
+        on_select="rerun",
+        selection_mode="points",
+        height="500px",
+        key="render_basic_bar_events",
+    )
+    if result:
+        st.write(result)
 
 
 def render_labelchanged():
     options = {
-        "title": {"text": "某站点用户访问来源", "subtext": "纯属虚构", "left": "center"},
+        "title": {
+            "text": "某站点用户访问来源",
+            "subtext": "纯属虚构",
+            "left": "center",
+        },
         "tooltip": {"trigger": "item"},
         "legend": {
             "orient": "vertical",
@@ -58,19 +68,19 @@ def render_labelchanged():
     events = {
         "legendselectchanged": "function(params) { return params.selected }",
     }
-    s = st_echarts(
-        options=options, events=events, height="600px", key="render_pie_events"
+    result = st_echarts(
+        options=options, events=events, height="500px", key="render_pie_events"
     )
-    if s is not None:
-        st.write(s)
+    if result and result.chart_event:
+        st.write(result.chart_event)
 
 
 ST_EVENTS_DEMOS = {
-    "Events: Basic bar with echarts event": (
+    "Basic bar with echarts event": (
         render_click_events,
         "https://echarts.apache.org/examples/en/editor.html?c=bar-simple",
     ),
-    "Events: Select legend event": (
+    "Select legend event": (
         render_labelchanged,
         "https://echarts.apache.org/examples/en/editor.html?c=pie-simple",
     ),

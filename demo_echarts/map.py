@@ -8,7 +8,7 @@ def render_usa():
     formatter = JsCode(
         "function (params) {"
         + "var value = (params.value + '').split('.');"
-        + "value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,');"
+        + r"value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,');"
         + "return params.seriesName + '<br/>' + params.name + ': ' + value;}"
     ).js_code
 
@@ -136,7 +136,7 @@ def render_usa():
 
 
 ST_MAP_DEMOS = {
-    "Map: USA Population estimates": (
+    "USA Population estimates": (
         render_usa,
         "https://echarts.apache.org/examples/en/editor.html?c=map-usa",
     ),

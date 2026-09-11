@@ -1,6 +1,32 @@
 from streamlit_echarts import st_echarts
 
 
+def render_parallel_simple():
+    options = {
+        "parallelAxis": [
+            {"dim": 0, "name": "Price"},
+            {"dim": 1, "name": "Net Weight"},
+            {"dim": 2, "name": "Amount"},
+            {
+                "dim": 3,
+                "name": "Score",
+                "type": "category",
+                "data": ["Excellent", "Good", "OK", "Bad"],
+            },
+        ],
+        "series": {
+            "type": "parallel",
+            "lineStyle": {"width": 4},
+            "data": [
+                [12.99, 100, 82, "Good"],
+                [9.99, 80, 77, "OK"],
+                [20, 120, 60, "Excellent"],
+            ],
+        },
+    }
+    st_echarts(options=options, height="500px")
+
+
 def render_parallel_aqi():
     # Schema:
     # date,AQIindex,PM2.5,PM10,CO,NO2,SO2
@@ -159,7 +185,9 @@ def render_parallel_aqi():
             "min": 0,
             "max": 150,
             "dimension": 2,
-            "inRange": {"color": ["#50a3ba", "#eac736", "#d94e5d"],},
+            "inRange": {
+                "color": ["#50a3ba", "#eac736", "#d94e5d"],
+            },
         },
         "parallel": {
             "left": "5%",
@@ -178,16 +206,35 @@ def render_parallel_aqi():
             },
         },
         "series": [
-            {"name": "北京", "type": "parallel", "lineStyle": lineStyle, "data": dataBJ},
-            {"name": "上海", "type": "parallel", "lineStyle": lineStyle, "data": dataSH},
-            {"name": "广州", "type": "parallel", "lineStyle": lineStyle, "data": dataGZ},
+            {
+                "name": "北京",
+                "type": "parallel",
+                "lineStyle": lineStyle,
+                "data": dataBJ,
+            },
+            {
+                "name": "上海",
+                "type": "parallel",
+                "lineStyle": lineStyle,
+                "data": dataSH,
+            },
+            {
+                "name": "广州",
+                "type": "parallel",
+                "lineStyle": lineStyle,
+                "data": dataGZ,
+            },
         ],
     }
     st_echarts(option, height="500px")
 
 
 ST_PARALLEL_DEMOS = {
-    "Parallel: Parallel Aqi": (
+    "Basic Parallel": (
+        render_parallel_simple,
+        "https://echarts.apache.org/examples/en/editor.html?c=parallel-simple",
+    ),
+    "Parallel Aqi": (
         render_parallel_aqi,
         "https://echarts.apache.org/examples/en/editor.html?c=parallel-aqi",
     ),
